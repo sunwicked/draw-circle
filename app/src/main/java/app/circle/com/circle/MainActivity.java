@@ -36,7 +36,12 @@ public class MainActivity extends AppCompatActivity {
     private void addCircle(MotionEvent motionEvent) {
 
         CircleView circleView = new CircleView(this);
-        relativeLayout.addView(circleView);
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(100,100);
+        params.leftMargin = (int) motionEvent.getX();
+        params.topMargin = (int) motionEvent.getY();
+
+        relativeLayout.addView(circleView, params);
     }
 
 
