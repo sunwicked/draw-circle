@@ -1,6 +1,8 @@
 package app.circle.com.circle;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.support.annotation.Nullable;
@@ -16,9 +18,9 @@ import android.view.View;
 public class CircleView extends View {
 
     Paint paint;
-    private int cX=50;
-    private int cY=50;
-
+    private int cX=20;
+    private int cY=20;
+Bitmap dragon = null;
     public CircleView(Context context) {
         super(context);
         init(context);
@@ -38,13 +40,15 @@ public class CircleView extends View {
         paint = new Paint();
         paint.setColor(ContextCompat.getColor(context, R.color.colorAccent));
         paint.setStyle(Paint.Style.FILL);
+        dragon =  BitmapFactory.decodeResource(getResources(), R.drawable.dragon );
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
-        canvas.drawCircle(cX, cY, 20, paint);
+// Icon made by https://www.flaticon.com/authors/freepik from www.flaticon.com
+      //  canvas.drawCircle(cX, cY, 20, paint);
+        canvas.drawBitmap(dragon,cX,cY,null);
     }
 
     @Override
