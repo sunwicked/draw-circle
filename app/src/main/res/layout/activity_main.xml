@@ -8,6 +8,7 @@
     tools:context="app.circle.com.circle.MainActivity">
 
     <app.circle.com.circle.CircleView
+        android:id="@+id/circle"
         android:background="@color/colorPrimaryDark"
         android:layout_width="50dp"
         android:layout_height="50dp"

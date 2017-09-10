@@ -16,6 +16,8 @@ import android.view.View;
 public class CircleView extends View {
 
     Paint paint;
+    private int cX=50;
+    private int cY=50;
 
     public CircleView(Context context) {
         super(context);
@@ -41,7 +43,8 @@ public class CircleView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawCircle(50, 50, 20, paint);
+
+        canvas.drawCircle(cX, cY, 20, paint);
     }
 
     @Override
