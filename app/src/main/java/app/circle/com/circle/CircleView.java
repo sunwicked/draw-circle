@@ -18,8 +18,8 @@ import android.view.View;
 public class CircleView extends View {
 
     Paint paint;
-    private int cX = 20;
-    private int cY = 20;
+    private int cX = 50;
+    private int cY = 50;
     private int radius = 20;
     private int colorAccent;
 
