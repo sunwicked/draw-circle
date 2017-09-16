@@ -1,6 +1,7 @@
 package app.circle.com.circle;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -8,7 +9,6 @@ import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.View;
 
 /**
@@ -18,37 +18,67 @@ import android.view.View;
 public class CircleView extends View {
 
     Paint paint;
-    private int cX=20;
-    private int cY=20;
-Bitmap dragon = null;
+    private int cX = 20;
+    private int cY = 20;
+    private int radius = 20;
+    private int colorAccent;
+
     public CircleView(Context context) {
         super(context);
-        init(context);
+        init(context, null);
     }
 
     public CircleView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        init(context);
+        init(context, attrs);
+
     }
 
     public CircleView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context);
+        init(context, attrs);
     }
 
-    private void init(Context context) {
+    private void init(Context context, AttributeSet attrs) {
         paint = new Paint();
-        paint.setColor(ContextCompat.getColor(context, R.color.colorAccent));
         paint.setStyle(Paint.Style.FILL);
-        dragon =  BitmapFactory.decodeResource(getResources(), R.drawable.dragon );
+        TypedArray a = context.getTheme().obtainStyledAttributes(
+                attrs,
+                R.styleable.CircleView,
+                0, 0);
+
+        try {
+            setRadius(a.getInteger(R.styleable.CircleView_radius, 20));
+            setColorAccent(a.getColor(R.styleable.CircleView_color, ContextCompat.getColor(context, R.color.colorAccent)));
+        } finally {
+            a.recycle();
+        }
+        paint.setColor(getCircleColor());
+    }
+
+
+    public void setColorAccent(int colorAccent) {
+        this.colorAccent = colorAccent;
+    }
+
+    private int getCircleColor() {
+
+        return this.colorAccent;
+    }
+
+    public int getRadius() {
+        return radius;
+    }
+
+    public void setRadius(int radius) {
+        this.radius = radius;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-// Icon made by https://www.flaticon.com/authors/freepik from www.flaticon.com
-      //  canvas.drawCircle(cX, cY, 20, paint);
-        canvas.drawBitmap(dragon,cX,cY,null);
+
+        canvas.drawCircle(cX, cY, getRadius(), paint);
     }
 
     @Override
