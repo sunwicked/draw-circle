@@ -6,6 +6,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
@@ -17,11 +19,14 @@ import android.view.View;
 
 public class CircleView extends View {
 
+    public static final int MARGIN = 12;
     Paint paint;
     private int cX = 50;
     private int cY = 50;
     private int radius = 20;
     private int colorAccent;
+    private Paint paintText;
+    String text = "Say hello to my little circle!";
 
     public CircleView(Context context) {
         super(context);
@@ -42,6 +47,15 @@ public class CircleView extends View {
     private void init(Context context, AttributeSet attrs) {
         paint = new Paint();
         paint.setStyle(Paint.Style.FILL);
+
+        paintText = new Paint();
+        paintText.setStyle(Paint.Style.FILL);
+        paintText.setColor(ContextCompat.getColor(context, R.color.colorAccent));
+        paintText.setAntiAlias(true);
+        paintText.setTextAlign(Paint.Align.CENTER);
+        paintText.setTextSize(40);
+
+
         TypedArray a = context.getTheme().obtainStyledAttributes(
                 attrs,
                 R.styleable.CircleView,
@@ -78,7 +92,13 @@ public class CircleView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        canvas.drawCircle(cX, cY, getRadius(), paint);
+        canvas.drawCircle(canvas.getWidth() / 2, canvas.getHeight() / 2, getRadius(), paint);
+        // Calculating the no of characters we can get in the view
+        int numOfChars = paintText.breakText(text, true, getRadius() * 2 - MARGIN, null);
+        text = text.substring(0, numOfChars) + "..";
+
+        canvas.drawText(text, canvas.getWidth() / 2, canvas.getHeight() / 2, paintText);
+
     }
 
     @Override

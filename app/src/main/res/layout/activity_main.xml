@@ -9,10 +9,11 @@
 
     <app.circle.com.circle.CircleView
         android:id="@+id/circle"
-        android:layout_width="500dp"
-        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:color="@android:color/black"
-        app:radius="30"
+        android:layout_centerInParent="true"
+        app:radius="200"
         />
 
 </RelativeLayout>
